@@ -1,0 +1,29 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Informace o vašem prohlížeči | by Houska</title>
+    <link rel="stylesheet" type="text/css" href="./assets/css/javascript-prohlížeč.css">
+    <link rel="icon" type="icon" href="./assets/imgs/profil.png">
+</head>
+<body>
+<script language="JavaScript">
+
+    //nastavení
+    function changeBackground(color) {
+   document.body.style.background = color;
+}
+
+    window.addEventListener("load",function() { changeBackground('black') });
+    
+    //prohlížeč
+    document.write("<font color='#00ff72'><b><u>Information about your browser:</u></b> </font><br>")
+    document.write("<font color='white'><b>App name: </b "+navigator.appName+". </font><br>")
+    document.write("<font color='white'><b>App version: </b>"+navigator.appVersion+". </font><br>")
+    document.write("<font color='white'><b>Code name: </b> "+navigator.appCodeName+". </font><br>")
+    document.write("<font color='white'><b>The browser sends in the header:</b> "+navigator.userAgent+". </font><br>")
+    document.write("<br>")
+    document.write("<font color='#00ff72'><b><u>IP Adress Info:</u><b></font><br>")
+    document.write("COMING SOON")
+</script>
+</body>
+</html>
