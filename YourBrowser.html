@@ -1,29 +1,57 @@
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Info about your browser | by Houska</title>
-    <link rel="stylesheet" type="text/css" href="./assets/css/javascript-prohlížeč.css">
-    <link rel="icon" type="icon" href="./assets/imgs/profil.png">
+    <title>Informace o vašem prohlížeči | by Houska</title>
+    <style>
+        body, html {
+            font-family: 'Roboto Mono', monospace;
+            background-color: black;
+            color: white;
+        }
+        .highlight {
+            color: #00ff72;
+        }
+    </style>
 </head>
 <body>
-<script language="JavaScript">
+    <h1 class="highlight">Information about your browser:</h1>
+    <p><strong>App name:</strong> <span id="appName"></span></p>
+    <p><strong>App version:</strong> <span id="appVersion"></span></p>
+    <p><strong>Code name:</strong> <span id="appCodeName"></span></p>
+    <p><strong>The browser sends in the header:</strong> <span id="userAgent"></span></p>
 
-    //nastavení
-    function changeBackground(color) {
-   document.body.style.background = color;
+    <h1 class="highlight">IP Address Info:</h1>
+    <p id="demo">Loading IP and Details...</p>
+
+<script>
+window.onload = function() {
+  document.getElementById('appName').textContent = navigator.appName;
+  document.getElementById('appVersion').textContent = navigator.appVersion;
+  document.getElementById('appCodeName').textContent = navigator.appCodeName;
+  document.getElementById('userAgent').textContent = navigator.userAgent;
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var ipInfo = JSON.parse(this.responseText);
+      document.getElementById("demo").innerHTML = "IP: " + ipInfo.ip;
+
+      var xhttp2 = new XMLHttpRequest();
+      xhttp2.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          var ipDetails = JSON.parse(this.responseText);
+          document.getElementById("demo").innerHTML += "<br>City: " + ipDetails.city + "<br>Region: " + ipDetails.region + "<br>Country: " + ipDetails.country;
+        }
+      };
+      xhttp2.open("GET", "https://ipinfo.io/json", true);
+      xhttp2.send();
+    }
+  };
+  xhttp.open("GET", "https://api.ipify.org?format=json", true);
+  xhttp.send();
 }
-
-    window.addEventListener("load",function() { changeBackground('black') });
-    
-    //prohlížeč
-    document.write("<font color='#00ff72'><b><u>Information about your browser:</u></b> </font><br>")
-    document.write("<font color='white'><b>App name: </b "+navigator.appName+". </font><br>")
-    document.write("<font color='white'><b>App version: </b>"+navigator.appVersion+". </font><br>")
-    document.write("<font color='white'><b>Code name: </b> "+navigator.appCodeName+". </font><br>")
-    document.write("<font color='white'><b>The browser sends in the header:</b> "+navigator.userAgent+". </font><br>")
-    document.write("<br>")
-    document.write("<font color='#00ff72'><b><u>IP Adress Info:</u><b></font><br>")
-    document.write("COMING SOON")
 </script>
+
 </body>
 </html>
