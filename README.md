@@ -1,7 +1,7 @@
 
 # Browser Informations
 
-Simple info in JavaScript. Free To Use. Secured (Open-Source Project).
+Simple info in JavaScript using IPInfo API. Free To Use. Secured (Open-Source Project). In development.
 
 
 ## Installation
