@@ -9,8 +9,8 @@
 
 ## Installation
 
-- Download `.html` file.
-- Double-click a file.
+- Download `.html` file. Or just open this GitHub Page: https://houska-dev.github.io/YourBrowser/
+- Double-click a file. (ignore if you are used github pages)
 
     
 ## FAQ
