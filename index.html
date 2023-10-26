@@ -1,98 +1,104 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="utf-8">
-    <title>Browser and IP info | by Houska</title>
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
-        body, html {
-            font-family: 'Poppins', sans-serif;
-            background-color: black;
-            color: white;
-        }
-        .highlight {
-            position: sticky;
-            color: #00ff72;
-            text-align: center;
-            background-color: #292929;
-            border-radius: 1rem;
-            height: 3rem;
-            width: 100%;
-            z-index: 1;
-        }
+  <meta charset="utf-8">
+  <title>Browser and IP info | by Houska</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@200&display=swap');
 
-        #footer {
-          position: fixed;
-          bottom: 0;
-          width: 100%;
-          background-color: #292929;
-          color: white;
-          text-align: center;
-        }
+    body,
+    html {
+      font-family: 'JetBrains Mono', monospace; 
+      background-color: black;
+      color: white;
+    }
 
-        .git:visited {
-          color: whitesmoke;
-          background-color: transparent;
-          text-decoration: none;
-        }
+    .highlight {
+      position: sticky;
+      color: #00ff72;
+      text-align: center;
+      background-color: #292929;
+      border-radius: 1rem;
+      height: 3rem;
+      width: 100%;
+      z-index: 1;
+    }
 
-        .git:hover {
-          color: yellow;
-          background-color: transparent;
-          text-decoration: underline;
-        }
+    #footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #292929;
+      color: white;
+      text-align: center;
+    }
 
-        .git {
-          text-align: right;
-        }
+    .git:visited {
+      color: whitesmoke;
+      background-color: transparent;
+      text-decoration: none;
+    }
 
-    </style>
+    .git:hover {
+      color: yellow;
+      background-color: transparent;
+      text-decoration: underline;
+    }
+
+    .git {
+      text-align: right;
+    }
+  </style>
 </head>
+
 <body>
-    <h1 class="highlight">Browser Info</h1>
-    <p><strong>App name:</strong> <span id="appName"></span></p>
-    <p><strong>App version:</strong> <span id="appVersion"></span></p>
-    <p><strong>Code name:</strong> <span id="appCodeName"></span></p>
-    <p><strong>Sends in:</strong> <span id="userAgent"></span></p>
 
-    <h1 class="highlight">IP Address Info</h1>
-    <div id="ipInfo">Loading IP info...</div>
+  <h1 class="highlight">Browser Info</h1>
+  <p><strong>App name:</strong> <span id="appName"></span></p>
+  <p><strong>App version:</strong> <span id="appVersion"></span></p>
+  <p><strong>Code name:</strong> <span id="appCodeName"></span></p>
+  <p><strong>Sends in:</strong> <span id="userAgent"></span></p>
 
-    <h1 class="error" id="error"></h1>
+  <h1 class="highlight">IP Address Info</h1>
+  <div id="ipInfo">Loading IP info...</div>
 
-<script>
-window.onload = function() {
-  try {
-    document.getElementById('appName').textContent = navigator.appName;
-    document.getElementById('appVersion').textContent = navigator.appVersion;
-    document.getElementById('appCodeName').textContent = navigator.appCodeName;
-    document.getElementById('userAgent').textContent = navigator.userAgent;
+  <h1 class="error" id="error"></h1>
 
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        var ipDetails = JSON.parse(this.responseText);
-        var ipInfoDiv = document.getElementById("ipInfo");
-        ipInfoDiv.innerHTML = "<p><strong>IP:</strong> " + ipDetails.ip + "</p>";
-        ipInfoDiv.innerHTML += "<p><strong>City:</strong> " + ipDetails.city + "</p>";
-        ipInfoDiv.innerHTML += "<p><strong>Region:</strong> " + ipDetails.region + "</p>";
-        ipInfoDiv.innerHTML += "<p><strong>Country:</strong> " + ipDetails.country + "</p>";
-        ipInfoDiv.innerHTML += "<p><strong>Location:</strong> " + ipDetails.loc + "</p>";
-        ipInfoDiv.innerHTML += "<p><strong>Postal Code:</strong> " + ipDetails.postal + "</p>";
-        ipInfoDiv.innerHTML += "<p><strong>Timezone:</strong> " + ipDetails.timezone + "</p>";
+  <script>
+    window.onload = function () {
+      try {
+        document.getElementById('appName').textContent = navigator.appName;
+        document.getElementById('appVersion').textContent = navigator.appVersion;
+        document.getElementById('appCodeName').textContent = navigator.appCodeName;
+        document.getElementById('userAgent').textContent = navigator.userAgent;
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            var ipDetails = JSON.parse(this.responseText);
+            var ipInfoDiv = document.getElementById("ipInfo");
+            ipInfoDiv.innerHTML = "<p><strong>IP:</strong> " + ipDetails.ip + "</p>";
+            ipInfoDiv.innerHTML += "<p><strong>City:</strong> " + ipDetails.city + "</p>";
+            ipInfoDiv.innerHTML += "<p><strong>Region:</strong> " + ipDetails.region + "</p>";
+            ipInfoDiv.innerHTML += "<p><strong>Country:</strong> " + ipDetails.country + "</p>";
+            ipInfoDiv.innerHTML += "<p><strong>Location:</strong> " + ipDetails.loc + "</p>";
+            ipInfoDiv.innerHTML += "<p><strong>Postal Code:</strong> " + ipDetails.postal + "</p>";
+            ipInfoDiv.innerHTML += "<p><strong>Timezone:</strong> " + ipDetails.timezone + "</p>";
+          }
+        };
+        xhttp.open("GET", "https://ipinfo.io/json", true);
+        xhttp.send();
+      } catch (error) {
+        document.getElementById('error').textContent = "Problem found: " + error.message;
       }
-    };
-    xhttp.open("GET", "https://ipinfo.io/json", true);
-    xhttp.send();
-  } catch (error) {
-    document.getElementById('error').textContent = "Problem found: " + error.message;
-  }
-}
-</script>
-<div id="footer">
-  <p>Developed by 🥖 with 🧡</p>
-  <a href="https://github.com/Houska-Dev/YourBrowser" target="_blank" class="git">GitHub</a>
-</div>
+    }
+  </script>
+  <div id="footer">
+    <p>Developed by 🥖 with 🧡</p>
+    <a href="https://github.com/Houska-Dev/YourBrowser" target="_blank" class="git">GitHub</a>
+  </div>
 
 </body>
+
 </html>
