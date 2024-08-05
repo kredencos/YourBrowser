@@ -9,7 +9,7 @@
 
 ## Installation
 
-- Download `.html` file. Or just open this GitHub Page: https://houska-dev.github.io/YourBrowser/
+- Download `.html` file. Or just open this GitHub Page: https://kredencos.github.io/YourBrowser/
 - Double-click a file. (ignore if you are used github pages)
 
     
